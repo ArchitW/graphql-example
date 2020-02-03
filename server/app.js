@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 //Db
-mongoose.connect('mongodb://gq-user:Test1234@ds215219.mlab.com:15219/gql-example', {useNewUrlParser: true});
+mongoose.connect('mongodb://gq-user:Test1234@ds215219.mlab.com:15219/gql-example', {useNewUrlParser: true, useUnifiedTopology:true});
 mongoose.connection.once('open', () => {
     console.log('connected to DB');
 });
