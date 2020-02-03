@@ -5,20 +5,19 @@ const mongoose = require("mongoose");
 const app = express();
 
 //Db
-mongoose.connect('mongodb://gq-user:Test1234@ds215219.mlab.com:15219/gql-example',{ useNewUrlParser: true });
-mongoose.connection.once('open',() => {
-  console.log('connected to DB');
+mongoose.connect('mongodb://gq-user:Test1234@ds215219.mlab.com:15219/gql-example', {useNewUrlParser: true});
+mongoose.connection.once('open', () => {
+    console.log('connected to DB');
 });
 
 //middleware
-app.use('/graphql',graphqlHTTP ({
+app.use('/graphql', graphqlHTTP({
 //  schema:schema
-  schema,
-  graphiql:true
+        schema, // defining our graph
+        graphiql: true
     }
-    
 ));
 
 app.listen(4000, () => {
-  console.log("Listening Req 4000");
+    console.log("Listening Req 4000");
 });
