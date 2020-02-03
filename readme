@@ -1,0 +1,23 @@
+Why: 
+1.Query as you want.
+2.data can be gathered in single visit.
+
+Q: get all books from author from title of book
+[REST]
+get/books/:id => title,genere,review, authorId
+get/authors/:id => name, age, bio, booksID
+[GraphQL]
+{
+    book(id:1){
+        title
+        gener
+        review
+        author{
+            name
+            bio
+        books{
+            name
+        }
+        }
+    }
+}
