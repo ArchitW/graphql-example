@@ -1,17 +1,10 @@
 import React ,{Component} from 'react';
 import {gql} from 'apollo-boost';
 import {useQuery} from "@apollo/react-hooks";
+import {getBooksQuery,getAuthorsQuery} from "../queries/queries";
 
-const getAuthors=gql`
-    {
-        authors{
-            name
-            id
-        }
-    }
-`
 const AddBook = () =>{
-    const {loading, error, data } = useQuery(getAuthors);
+    const {loading, error, data } = useQuery(getAuthorsQuery);
     if(loading) return <p>Loading</p>
     if(error) return <p>Error</p>
     const {authors} = data;
