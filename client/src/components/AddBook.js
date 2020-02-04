@@ -1,17 +1,18 @@
 import React ,{Component, useState} from 'react';
-import {gql} from 'apollo-boost';
-import {useQuery} from "@apollo/react-hooks";
-import {getBooksQuery,getAuthorsQuery} from "../queries/queries";
+import {useQuery, useMutation} from "@apollo/react-hooks";
+import {addBookMutation, getAuthorsQuery, getBooksQuery} from "../queries/queries";
 
 
 const AddBook = () =>{
+    //Mutation hook
+    const [insertBook] = useMutation(addBookMutation);
 //https://dev.to/zeyadetman/from-reactjs-class-component-to-functional-component---usestate-part-1-2l3m
 // https://codesandbox.io/s/kkm2o57ky3
-
+//state variables.
     const [name,setName ] = useState('');
     const [genre,setGenre ] = useState('');
     const [authorId,setAuthorId ] = useState('');
-
+// GraphQL query //
     const {loading, error, data } = useQuery(getAuthorsQuery);
     if(loading) return <p>Loading</p>
     if(error) return <p>Error</p>
@@ -20,11 +21,21 @@ const AddBook = () =>{
         return <option value={author.id} key={author.id}>{author.name}</option>
     });
 
+    //submits form
+    //https://rangle.io/blog/simplifying-controlled-inputs-with-hooks/
     const handleSubmitForm = (e) =>{
         e.preventDefault();
         console.log(name , genre, authorId);
-
-    }
+        //addTodo({ variables: { type: input.value } });
+       insertBook({variables:{
+               name: name,
+               authorId:authorId ,
+               genre:genre
+       },
+           refetchQueries:[{query:getBooksQuery}]
+       });
+       // <Mutation mutation={ADD_USER} variables={{ username }} onError={() => {}}>
+    };
     return(
         <form onSubmit={handleSubmitForm}>
             <div className="field">
