@@ -21,3 +21,5 @@ get/authors/:id => name, age, bio, booksID
         }
     }
 }
+
+Mutations : add, change, edit data
